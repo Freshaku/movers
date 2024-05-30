@@ -1,9 +1,8 @@
 package mg.mowers.controller;
 
-import mg.mowers.entity.User;
-import mg.mowers.security.JWTUtil;
-import mg.mowers.security.JwtUserDetails;
-import mg.mowers.service.UserService;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
+import mg.mowers.entity.User;
+import mg.mowers.security.JWTUtil;
+import mg.mowers.security.JwtUserDetails;
+import mg.mowers.service.UserService;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -40,11 +41,17 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody AuthRequest authRequest) {
+        System.out.println("Name: " + authRequest.getName());
+        System.out.println("Password: " + authRequest.getPassword());
+        System.out.println("Email: " + authRequest.getEmail());
+        System.out.println("Role: " + authRequest.getRole());
         User user = new User();
-        user.setUsername(authRequest.getUsername());
-        user.setPassword(passwordEncoder.encode(authRequest.getPassword()));
+        user.setAvatarPath(authRequest.getAvatarPath());
+        user.setName(authRequest.getName());
+        user.setSurname(authRequest.getSurname());
+        user.setPasswordHash(passwordEncoder.encode(authRequest.getPassword()));
         user.setEmail(authRequest.getEmail());
-        user.setRoleId(authRequest.getRoleId());
+        user.setRole(authRequest.getRole());
         userService.save(user);
         return ResponseEntity.ok("User registered successfully");
     }
@@ -52,7 +59,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
+                new UsernamePasswordAuthenticationToken(authRequest.getName(), authRequest.getPassword())
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);

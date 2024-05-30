@@ -1,18 +1,38 @@
 package mg.mowers.controller;
 
 public class AuthRequest {
-    private String username;
+    private String name;
     private String password;
     private String email;
-    private Long roleId;
+    private String role;
+    private String surname;
+    private String avatarPath;
+
+    public String getAvatarPath() {
+        return avatarPath;
+    }
+
+    public void setAvatarPath(String avatarPath) {
+        this.avatarPath = avatarPath;
+    }
+
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
 
     // Геттеры и сеттеры
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.name = username;
     }
 
     public String getPassword() {
@@ -31,11 +51,11 @@ public class AuthRequest {
         this.email = email;
     }
 
-    public Long getRoleId() {
-        return roleId;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setRole(String role) {
+        this.role = role;
     }
 }

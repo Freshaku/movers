@@ -1,11 +1,12 @@
 package mg.mowers.service;
 
-import mg.mowers.entity.User;
-import mg.mowers.repository.UserRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import mg.mowers.entity.User;
+import mg.mowers.repository.UserRepository;
 
 @Service
 public class UserService {
@@ -18,7 +19,7 @@ public class UserService {
     }
 
     public void save(User user) {
-        System.out.println("Saving user: " + user.getUsername());
+        System.out.println("Saving user: " + user.getName());
         userRepository.save(user);
     }
 }

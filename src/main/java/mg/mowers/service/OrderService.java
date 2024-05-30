@@ -1,22 +1,23 @@
 package mg.mowers.service;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import mg.mowers.entity.Invoice;
 import mg.mowers.entity.Order;
 import mg.mowers.entity.OrderItem;
 import mg.mowers.repository.InvoiceRepository;
 import mg.mowers.repository.OrderItemRepository;
 import mg.mowers.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.List;
-
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
 
 @Service
 public class OrderService {
@@ -76,7 +77,7 @@ public class OrderService {
         document.add(new Paragraph("Date: " + order.getDate()));
         document.add(new Paragraph("Total Amount: " + order.getTotalAmount()));
         document.add(new Paragraph("Partner: " + order.getPartner().getName()));
-        document.add(new Paragraph("Created by: " + order.getCreatedBy().getUsername()));
+        document.add(new Paragraph("Created by: " + order.getCreatedBy().getName()));
         document.add(new Paragraph("Signatures:"));
         document.add(new Paragraph("Employee Signature: _______________"));
         document.add(new Paragraph("Partner Signature: _______________"));

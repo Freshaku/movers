@@ -1,24 +1,59 @@
 package mg.mowers.entity;
 
+import io.micrometer.common.lang.Nullable;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "dim_user") // Use the correct table name from the SQL script
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "userID") // Map to the primary key column in the database
     private Long id;
 
-    private String username;
-    private String email;
-    private String password;
-    private Long roleId;
-    private String refreshToken;
+    @Column(name = "name") // Map to the corresponding columns in the database
+    private String name;
 
-    // Геттеры и сеттеры
+    @Nullable
+    @Column(name = "surname")
+    private String surname;
+
+    @Nullable
+    @Column(name = "avatar_path")
+    private String avatarPath;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "password_hash")
+    private String passwordHash;
+
+    // Assuming there is a default role for users
+    @Column(name = "roleId")
+    private Long roleId;
+
+    @Column(name = "role")
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+
+    // Constructors, getters, and setters
+    // Constructors, getters, and setters
     public Long getId() {
         return id;
     }
@@ -27,12 +62,28 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getAvatarPath() {
+        return avatarPath;
+    }
+
+    public void setAvatarPath(String avatarPath) {
+        this.avatarPath = avatarPath;
     }
 
     public String getEmail() {
@@ -43,12 +94,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public Long getRoleId() {
@@ -59,11 +110,15 @@ public class User {
         this.roleId = roleId;
     }
 
-    public String getRefreshToken() {
-        return refreshToken;
+    public User() {
     }
 
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
+    public User(String name, String surname, String avatarPath, String email, String passwordHash, Long roleId) {
+        this.name = name;
+        this.surname = surname;
+        this.avatarPath = avatarPath;
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.roleId = roleId;
     }
 }
